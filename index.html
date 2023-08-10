@@ -6,8 +6,11 @@
     <title>Verdad o Mentira</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            font-family: 'Pacifico', cursive; /* Agrega la tipografía personalizada */
+            background-image: url('audience-band-celebration-1190298.jpeg'); /* Cambia el nombre de la imagen */
+            background-size: cover;
+            background-blur: 7.5px;
+            background-color: rgba(255, 255, 255, 0.75);
             margin: 0;
             display: flex;
             justify-content: center;
@@ -18,7 +21,7 @@
         #container {
             text-align: center;
             padding: 20px;
-            background-color: #fff;
+            background-color: rgba(255, 255, 255, 0.9);
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         }
@@ -26,6 +29,7 @@
         #message {
             font-size: 18px;
             margin-bottom: 20px;
+            padding: 0 20px; /* Agrega padding horizontal para el mensaje */
         }
 
         #okButton, .choiceButton {
@@ -38,7 +42,7 @@
             margin: 5px;
         }
 
-        #confirmation, #choices {
+        #confirmation, #choices, #result {
             display: none;
         }
 
@@ -46,12 +50,15 @@
             margin-top: 20px;
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="container">
         <p id="message">
-            Recuerda no se pueden saltar estas preguntas, en caso de saltarlas no tendria gracia...
-            <!-- (continuar con el texto) -->
+            Recuerda no se pueden saltar estas preguntas, en caso de saltarlas no tendría gracia.
+            Recuerda que juegas a esto para divertirte y para conocer mejor con el que estás jugando,
+            si de verdad no te apetece preguntarle eso o no quieres responderlo tú. Simplemente
+            explícaselo.
         </p>
         <button id="okButton">OK</button>
         <div id="confirmation">
@@ -82,12 +89,14 @@
 
             okButton.addEventListener("click", function () {
                 message.style.display = "none";
+                okButton.style.display = "none"; // Oculta el botón OK
                 confirmation.style.display = "block";
             });
 
             confirmNo.addEventListener("click", function () {
                 confirmation.style.display = "none";
                 message.style.display = "block";
+                okButton.style.display = "block"; // Vuelve a mostrar el botón OK
             });
 
             confirmYes.addEventListener("click", function () {
