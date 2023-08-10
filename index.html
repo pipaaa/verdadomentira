@@ -6,8 +6,8 @@
     <title>Verdad o Mentira</title>
     <style>
         body {
-            font-family: 'Pacifico', cursive; /* Agrega la tipografía personalizada */
-            background-image: url(audience-band-celebration-1190298.jpeg); /* Cambia el nombre de la imagen */
+            font-family: 'Pacifico', cursive;
+            background-image: url(audience-band-celebration-1190298.jpeg);
             background-size: cover;
             background-blur: 7.5px;
             background-color: rgba(255, 255, 255, 0.75);
@@ -29,7 +29,7 @@
         #message {
             font-size: 18px;
             margin-bottom: 20px;
-            padding: 0 20px; /* Agrega padding horizontal para el mensaje */
+            padding: 0 20px;
         }
 
         #okButton, .choiceButton {
@@ -89,14 +89,14 @@
 
             okButton.addEventListener("click", function () {
                 message.style.display = "none";
-                okButton.style.display = "none"; // Oculta el botón OK
+                okButton.style.display = "none";
                 confirmation.style.display = "block";
             });
 
             confirmNo.addEventListener("click", function () {
                 confirmation.style.display = "none";
                 message.style.display = "block";
-                okButton.style.display = "block"; // Vuelve a mostrar el botón OK
+                okButton.style.display = "block";
             });
 
             confirmYes.addEventListener("click", function () {
@@ -106,10 +106,37 @@
 
             truthButton.addEventListener("click", function () {
                 const truths = [
-                    "Verdad: ¿Cuál es tu comida favorita?",
-                    "Verdad: ¿Cuál es tu película favorita?",
-                    "Verdad: ¿Tienes alguna fobia?",
-                    // Agrega más preguntas de verdad
+                    "Eres caliente amorosamente hablando?",
+                    "Te gusta el sexo?",
+                    "Te gusta algún chic@?",
+                    "Alguna vez te has sentido atraid@ por alguien de tu género?",
+                    "Tienes alguna fobia?",
+                    "Qué te gusta de mí?",
+                    "Qué no te gusta de mí?",
+                    "Cuál es la parte de tu físico que más te gusta?",
+                    "Cuál es la parte de tu físico que menos te gusta?",
+                    "Cómo le llamas a la parte genital de el hombre?",
+                    "Cómo le llamas a la parte genital de la mujer?",
+                    "Cuándo fue la última vez que mentiste?",
+                    "Qué es lo peor que has hecho en el trabajo?",
+                    "Cuándo fue la última vez que lloraste?",
+                    "Y la última vez que te reíste?",
+                    "Alguna vez te has hecho pis encima por reírte demasiado?",
+                    "Cuál es tu mayor miedo?",
+                    "Cuál es tu mayor fantasía?",
+                    "Cuál es la frase más atrevida que has utilizado para ligar?",
+                    "A qué famoso crees que te pareces más?",
+                    "Cuántas selfies te haces al día?",
+                    "Por qué harías una cola de una hora?",
+                    "Cuándo lloraste por última vez?",
+                    "Cuánto tiempo has pasado sin ducharte?",
+                    "Cuál es la canción más vergonzosa que suena en tu teléfono?",
+                    "Cuál era tu serie favorita de la infancia?",
+                    "Si tuvieras que cambiarte el nombre, cuál sería tu nuevo nombre?",
+                    "Si pudieras ser un personaje de ficción por un día, a quién elegirías?",
+                    "Si pudieras salir con un personaje de ficción, con quién sería?",
+                    "Qué es lo que más te disgusta de un posible interés amoroso?",
+                    "Eres más de que se te declaren o de declararte?"
                 ];
                 const randomTruth = truths[Math.floor(Math.random() * truths.length)];
                 resultText.innerText = randomTruth;
@@ -118,10 +145,20 @@
 
             challengeButton.addEventListener("click", function () {
                 const challenges = [
-                    "Reto: Haz 10 saltos en el lugar",
-                    "Reto: Canta tu canción favorita en voz alta",
-                    "Reto: Llama a un amigo y dile un chiste",
-                    // Agrega más retos
+                    "Manda una foto de tu historial de Google.",
+                    "Manda una foto de tu chat de Instagram.",
+                    "Manda una foto tuya en la que te sentías muy bien.",
+                    "Haz una imitación de otro jugador hasta que alguien descubra de quién se trata.",
+                    "Di pepinillos al final de cada frase que digas hasta que vuelva a ser tu turno.",
+                    "Imita a una estrella de TikTok hasta que otro jugador adivine a quién estás imitando.",
+                    "Actúa como una gallina hasta tu próximo turno.",
+                    "Habla con acento británico hasta tu siguiente turno.",
+                    "Envía un emoji de corazón a la historia de Instagram de la persona que te gusta.",
+                    "Llama a un amigo, finge que es su cumpleaños y cántale Happy Birthday to You.",
+                    "Nombra a un personaje famoso que se parezca a cada jugador de la sala.",
+                    "Muéstranos tus mejores pasos de baile.",
+                    "Confiesa algo que tu compañero no sabe y crees que le gustaría saberlo.",
+                    "Sigue a la persona que te diga tu compañero."
                 ];
                 const randomChallenge = challenges[Math.floor(Math.random() * challenges.length)];
                 resultText.innerText = randomChallenge;
