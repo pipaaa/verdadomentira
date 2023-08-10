@@ -116,7 +116,7 @@
             };
 
             let spinning = false;
-            const spinInterval = 50; // ms
+            const spinInterval = 100; // ms
             let currentSpins = 0;
             let maxSpins = 50;
             let targetIndex = 0;
@@ -134,7 +134,7 @@
                         setTimeout(() => {
                             result.style.display = "none";
                             choices.style.display = "block";
-                        }, 1000); // Esperar 1 segundo antes de mostrar la pregunta
+                        }, 2000); // Esperar 2 segundos antes de mostrar la pregunta
                     }
                 }
             };
@@ -220,7 +220,7 @@
                 "Canta tu canción favorita en voz alta en medio de la calle (sin música).",
                 "Actúa como si estuvieras en un comercial y vende un objeto al azar a los otros jugadores.",
                 "Comparte una anécdota embarazosa que nunca hayas contado antes.",
-                "Publica un mensaje en tus redes sociales diciendo '¡Amo las verdades incómodas!'.",
+                "Publica un tweet o estado en redes sociales diciendo '¡Amo las verdades incómodas!'.",
                 "Manda un mensaje a un amigo diciéndole que estás considerando hacerte vegetariano.",
                 "Escribe un poema improvisado sobre un objeto que te den los otros jugadores.",
                 "Cambia tu foto de perfil en redes sociales a la imagen de un personaje famoso por un día.",
@@ -246,10 +246,12 @@
             });
 
             challengeButton.addEventListener("click", function () {
-                const randomChallenge = getRandomUniqueChallenge();
-                resultText.innerText = randomChallenge;
-                result.style.display = "block";
-                choices.style.display = "none";
+                if (!spinning) {
+                    const randomChallenge = getRandomUniqueChallenge();
+                    resultText.innerText = randomChallenge;
+                    result.style.display = "block";
+                    choices.style.display = "none";
+                }
             });
         });
     </script>
