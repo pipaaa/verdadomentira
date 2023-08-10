@@ -9,7 +9,7 @@
             font-family: 'Verdana', sans-serif;
             background-image: url(audience-band-celebration-1190298.jpeg);
             background-size: cover;
-            background-blur: 20px;
+            backdrop-filter: blur(7.5px);
             background-color: rgba(255, 255, 255, 0.75);
             margin: 0;
             display: flex;
@@ -87,6 +87,58 @@
             const result = document.getElementById("result");
             const resultText = document.getElementById("resultText");
 
+            const maxHistorySize = 10;
+            let truthHistory = [];
+            let challengeHistory = [];
+
+            const getRandomUniqueTruth = () => {
+                let newTruth;
+                do {
+                    newTruth = truths[Math.floor(Math.random() * truths.length)];
+                } while (truthHistory.includes(newTruth));
+                truthHistory.push(newTruth);
+                if (truthHistory.length > maxHistorySize) {
+                    truthHistory.shift();
+                }
+                return newTruth;
+            };
+
+            const getRandomUniqueChallenge = () => {
+                let newChallenge;
+                do {
+                    newChallenge = challenges[Math.floor(Math.random() * challenges.length)];
+                } while (challengeHistory.includes(newChallenge));
+                challengeHistory.push(newChallenge);
+                if (challengeHistory.length > maxHistorySize) {
+                    challengeHistory.shift();
+                }
+                return newChallenge;
+            };
+
+            let spinning = false;
+            const spinInterval = 50; // ms
+            let currentSpins = 0;
+            let maxSpins = 50;
+            let targetIndex = 0;
+            let spinIntervalId;
+
+            const spinResultText = () => {
+                if (spinning) {
+                    resultText.innerText = truths[targetIndex]; // Mostrar la pregunta actual
+                    targetIndex = (targetIndex + 1) % truths.length;
+                    currentSpins++;
+                    if (currentSpins >= maxSpins) {
+                        spinning = false;
+                        currentSpins = 0;
+                        clearInterval(spinIntervalId);
+                        setTimeout(() => {
+                            result.style.display = "none";
+                            choices.style.display = "block";
+                        }, 1000); // Esperar 1 segundo antes de mostrar la pregunta
+                    }
+                }
+            };
+
             okButton.addEventListener("click", function () {
                 message.style.display = "none";
                 okButton.style.display = "none";
@@ -104,65 +156,100 @@
                 choices.style.display = "block";
             });
 
+            const truths = [
+                "Eres caliente amorosamente hablando?",
+                "Te gusta el sexo?",
+                "Te gusta algun chic@?",
+                "Alguna vez t has sentido atraid@ por alguien de tu genero?",
+                "Tienes alguna fobia?",
+                "Que te gusta de mi?",
+                "Que no te gusta de mi?",
+                "Cual es la parte de tu fisico que mas te gusta?",
+                "Cual es la parte de tu fisico que menos te gusta?",
+                "Como le llamas a la parte genital de el hombre?",
+                "Como le llamas a la parte genital de la mujer?",
+                "Cuándo fue la última vez que mentiste?",
+                "Qué es lo peor que has hecho en el trabajo?",
+                "Cuándo fue la última vez que lloraste?",
+                "Y la última vez que te reíste?",
+                "Alguna vez te has hecho pis encima por reírte demasiado?",
+                "Cuál es tu mayor miedo?",
+                "Cuál es tu mayor fantasía?",
+                "Cuál es la frase más atrevida que has utilizado para ligar?",
+                "A qué famoso crees que te pareces más?",
+                "Cuántas selfies te haces al día?",
+                "Por qué harías una cola de una hora?",
+                "Cuánto tiempo has pasado sin ducharte?",
+                "Cuál es la canción más vergonzosa que suena en tu teléfono?",
+                "Cuál era tu serie favorita de la infancia?",
+                "Si tuvieras que cambiarte el nombre, cuál sería tu nuevo nombre?",
+                "Si pudieras ser un personaje de ficción por un día, a quién elegirías?",
+                "Si pudieras salir con un personaje de ficción, con quién sería?",
+                "Cuál es la tontería sin la que no puedes vivir?",
+                "Cuál era el lugar de vacaciones favorito de tu infancia?",
+                "Cuál es la moda más extraña en la que has participado?",
+                "Si sólo pudieras escuchar una canción el resto de tu vida, cuál elegirías?",
+                "A quién envías más mensajes de texto?",
+                "Te han despedido alguna vez de un trabajo?",
+                "Si tuvieras que llevar sólo chanclas o tacones durante los próximos 10 años, qué elegirías?",
+                "Qué es lo que más te disgusta de un posible interés amoroso?",
+                "Eres más de que se te declaren o de declararte?"
+            ];
+
+            const challenges = [
+                "Manda una foto de tu historial de Google.",
+                "Manda una foto de tu chat de Instagram.",
+                "Manda una foto tuya en la que te sentías muy bien.",
+                "Haz una imitación de otro jugador hasta que alguien descubra de quién se trata.",
+                "Di pepinillos al final de cada frase que digas hasta que vuelva a ser tu turno.",
+                "Imita a una estrella de TikTok hasta que otro jugador adivine a quién estás imitando.",
+                "Actúa como una gallina hasta tu próximo turno.",
+                "Habla con acento británico hasta tu siguiente turno.",
+                "Envía un emoji de corazón a la historia de Instagram de la persona que te gusta.",
+                "Llama a un amigo, finge que es su cumpleaños y cántale Happy Birthday to You.",
+                "Nombra a un personaje famoso que se parezca a cada jugador de la sala.",
+                "Muéstranos tus mejores pasos de baile.",
+                "Confiesa algo que tu compañero no sabe y crees que le gustaría saberlo.",
+                "Sigue a la persona que te diga tu compañero.",
+                "Haz una llamada de broma a alguien y dile que encontraste un pingüino en la nevera.",
+                "Publica una foto tuya haciendo una pose extravagante en tus redes sociales.",
+                "Llama a un familiar y convéncele de que estás postulando para ser astronauta.",
+                "Haz una imitación de tu personaje de película favorito durante un minuto.",
+                "Ponte calcetines en las manos y actúa como si fueras un mimo durante dos minutos.",
+                "Cambia tu estado de relación en redes sociales a 'Es complicado' por una hora.",
+                "Canta tu canción favorita en voz alta en medio de la calle (sin música).",
+                "Actúa como si estuvieras en un comercial y vende un objeto al azar a los otros jugadores.",
+                "Comparte una anécdota embarazosa que nunca hayas contado antes.",
+                "Publica un mensaje en tus redes sociales diciendo '¡Amo las verdades incómodas!'.",
+                "Manda un mensaje a un amigo diciéndole que estás considerando hacerte vegetariano.",
+                "Escribe un poema improvisado sobre un objeto que te den los otros jugadores.",
+                "Cambia tu foto de perfil en redes sociales a la imagen de un personaje famoso por un día.",
+                "Llama a una pizzería y pregunta si tienen pizza de chocolate con queso azul.",
+                "Imita el sonido de tres animales diferentes y deja que los demás adivinen cuáles son.",
+                "Publica un tweet o estado en redes sociales diciendo que crees en los unicornios.",
+                "Haz una llamada falsa a un amigo y dile que eres un espía en una misión secreta.",
+                "Comparte un chiste malo en tus redes sociales y manténlo allí por una hora.",
+                "Envía un mensaje a un familiar diciéndole que ganaste la lotería (después revela que es una broma).",
+                "Escribe una historia corta en cinco minutos y compártela con los demás jugadores.",
+                "Llama a un número al azar y canta 'Feliz Cumpleaños' al destinatario."
+            ];
+
             truthButton.addEventListener("click", function () {
-                const truths = [
-                    "Eres caliente amorosamente hablando?",
-                    "Te gusta el sexo?",
-                    "Te gusta algún chic@?",
-                    "Alguna vez te has sentido atraid@ por alguien de tu género?",
-                    "Tienes alguna fobia?",
-                    "Qué te gusta de mí?",
-                    "Qué no te gusta de mí?",
-                    "Cuál es la parte de tu físico que más te gusta?",
-                    "Cuál es la parte de tu físico que menos te gusta?",
-                    "Cómo le llamas a la parte genital de el hombre?",
-                    "Cómo le llamas a la parte genital de la mujer?",
-                    "Cuándo fue la última vez que mentiste?",
-                    "Qué es lo peor que has hecho en el trabajo?",
-                    "Cuándo fue la última vez que lloraste?",
-                    "Y la última vez que te reíste?",
-                    "Alguna vez te has hecho pis encima por reírte demasiado?",
-                    "Cuál es tu mayor miedo?",
-                    "Cuál es tu mayor fantasía?",
-                    "Cuál es la frase más atrevida que has utilizado para ligar?",
-                    "A qué famoso crees que te pareces más?",
-                    "Cuántas selfies te haces al día?",
-                    "Por qué harías una cola de una hora?",
-                    "Cuándo lloraste por última vez?",
-                    "Cuánto tiempo has pasado sin ducharte?",
-                    "Cuál es la canción más vergonzosa que suena en tu teléfono?",
-                    "Cuál era tu serie favorita de la infancia?",
-                    "Si tuvieras que cambiarte el nombre, cuál sería tu nuevo nombre?",
-                    "Si pudieras ser un personaje de ficción por un día, a quién elegirías?",
-                    "Si pudieras salir con un personaje de ficción, con quién sería?",
-                    "Qué es lo que más te disgusta de un posible interés amoroso?",
-                    "Eres más de que se te declaren o de declararte?"
-                ];
-                const randomTruth = truths[Math.floor(Math.random() * truths.length)];
-                resultText.innerText = randomTruth;
-                result.style.display = "block";
+                if (!spinning) {
+                    resultText.innerText = "";
+                    spinning = true;
+                    targetIndex = Math.floor(Math.random() * truths.length);
+                    spinIntervalId = setInterval(spinResultText, spinInterval);
+                    choices.style.display = "none";
+                    result.style.display = "block";
+                }
             });
 
             challengeButton.addEventListener("click", function () {
-                const challenges = [
-                    "Manda una foto de tu historial de Google.",
-                    "Manda una foto de tu chat de Instagram.",
-                    "Manda una foto tuya en la que te sentías muy bien.",
-                    "Haz una imitación de otro jugador hasta que alguien descubra de quién se trata.",
-                    "Di pepinillos al final de cada frase que digas hasta que vuelva a ser tu turno.",
-                    "Imita a una estrella de TikTok hasta que otro jugador adivine a quién estás imitando.",
-                    "Actúa como una gallina hasta tu próximo turno.",
-                    "Habla con acento británico hasta tu siguiente turno.",
-                    "Envía un emoji de corazón a la historia de Instagram de la persona que te gusta.",
-                    "Llama a un amigo, finge que es su cumpleaños y cántale Happy Birthday to You.",
-                    "Nombra a un personaje famoso que se parezca a cada jugador de la sala.",
-                    "Muéstranos tus mejores pasos de baile.",
-                    "Confiesa algo que tu compañero no sabe y crees que le gustaría saberlo.",
-                    "Sigue a la persona que te diga tu compañero."
-                ];
-                const randomChallenge = challenges[Math.floor(Math.random() * challenges.length)];
+                const randomChallenge = getRandomUniqueChallenge();
                 resultText.innerText = randomChallenge;
                 result.style.display = "block";
+                choices.style.display = "none";
             });
         });
     </script>
