@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verdad o Mentira</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #container {
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        #message {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        #okButton, .choiceButton {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        #confirmation, #choices {
+            display: none;
+        }
+
+        #result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <p id="message">
+            Recuerda no se pueden saltar estas preguntas, en caso de saltarlas no tendria gracia...
+            <!-- (continuar con el texto) -->
+        </p>
+        <button id="okButton">OK</button>
+        <div id="confirmation">
+            <p>¿Has leído y comprendido el mensaje?</p>
+            <button id="confirmYes">Sí</button>
+            <button id="confirmNo">No</button>
+        </div>
+        <div id="choices">
+            <button class="choiceButton" id="truthButton">Verdad</button>
+            <button class="choiceButton" id="challengeButton">Reto</button>
+        </div>
+        <div id="result">
+            <p id="resultText"></p>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const message = document.getElementById("message");
+            const okButton = document.getElementById("okButton");
+            const confirmation = document.getElementById("confirmation");
+            const confirmYes = document.getElementById("confirmYes");
+            const confirmNo = document.getElementById("confirmNo");
+            const choices = document.getElementById("choices");
+            const truthButton = document.getElementById("truthButton");
+            const challengeButton = document.getElementById("challengeButton");
+            const result = document.getElementById("result");
+            const resultText = document.getElementById("resultText");
+
+            okButton.addEventListener("click", function () {
+                message.style.display = "none";
+                confirmation.style.display = "block";
+            });
+
+            confirmNo.addEventListener("click", function () {
+                confirmation.style.display = "none";
+                message.style.display = "block";
+            });
+
+            confirmYes.addEventListener("click", function () {
+                confirmation.style.display = "none";
+                choices.style.display = "block";
+            });
+
+            truthButton.addEventListener("click", function () {
+                const truths = [
+                    "Verdad: ¿Cuál es tu comida favorita?",
+                    "Verdad: ¿Cuál es tu película favorita?",
+                    "Verdad: ¿Tienes alguna fobia?",
+                    // Agrega más preguntas de verdad
+                ];
+                const randomTruth = truths[Math.floor(Math.random() * truths.length)];
+                resultText.innerText = randomTruth;
+                result.style.display = "block";
+            });
+
+            challengeButton.addEventListener("click", function () {
+                const challenges = [
+                    "Reto: Haz 10 saltos en el lugar",
+                    "Reto: Canta tu canción favorita en voz alta",
+                    "Reto: Llama a un amigo y dile un chiste",
+                    // Agrega más retos
+                ];
+                const randomChallenge = challenges[Math.floor(Math.random() * challenges.length)];
+                resultText.innerText = randomChallenge;
+                result.style.display = "block";
+            });
+        });
+    </script>
+</body>
+</html>
